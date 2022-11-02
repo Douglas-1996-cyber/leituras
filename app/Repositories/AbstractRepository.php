@@ -53,7 +53,7 @@ abstract class AbstractRepository{
         
     }
     public function buscar($campo,$pesquisa,$user_id){
-      $busca = $this->model->where($campo,'like','%'.$pesquisa.'%')->where('user_id',$user_id)->paginate(2);
+      $busca = $this->model->where($campo,'like','%'.$pesquisa.'%')->where('user_id',$user_id);
       return $busca; 
    }
 }

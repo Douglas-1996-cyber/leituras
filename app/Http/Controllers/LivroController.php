@@ -27,14 +27,14 @@ class LivroController extends Controller
     {    
         $user_id = auth()->user()->id;
         $livroRepository = new LivroRepository($this->livro);
-        $livros = $this->livro->where('user_id',$user_id)->orderBy('created_at','desc')->paginate(3);
+        $livros = $this->livro->where('user_id',$user_id)->orderBy('created_at','desc');
       
        if(isset($request->pesquisar)){
         $livros = $livroRepository->buscar('titulo',$request->pesquisar,$user_id);
         
        }
        
-        
+        $livros = $livros->paginate(3);
         $result = $livroRepository->verificarSolicitacao($request->codigo);
         if(sizeof($request->all()) == 0){
             $result[0] = '';
@@ -68,13 +68,14 @@ class LivroController extends Controller
     public function store(Request $request)
     {
         $user_id = auth()->user()->id;
-       
+         /*Implementar no AWS
         if(isset($request->capa)){
             $capa = $request->file('capa');
             $capa_urn = $capa->store('imagens/capa','public');
             $this->livro->capa = $capa_urn; 
             $request->validate($this->livro->rules(),$this->livro->feedback());  
-        }
+        }*/
+
         if($request->lido){
         $this->livro->situacao = "Concluido" ;
         $this->livro->num_pags_lidos = $request->num_pags;
@@ -124,13 +125,15 @@ class LivroController extends Controller
         return view('livro.show',['livro'=>$livro,'msg'=>$result[0],'classe'=>$result[1]]);
     }
     public function update(Request $request, Livro $livro){
-      if(isset($request->capa)){
+       /*Implementar no AWS
+        if(isset($request->capa)){
         $capa = $request->file('capa');
         $capa_urn = $capa->store('imagens/capa','public');
         Storage::disk('public')->delete($livro->capa);
         $livro->capa = $capa_urn; 
         $request->validate($this->livro->rules(),$this->livro->feedback());  
       }
+      */
       $livro->titulo = $request->titulo;
       $livro->save();
       return redirect()->route('livro.index',['codigo'=>0]);

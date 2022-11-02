@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center ">
-        <div class="col-md-8">
+        <div class="col-md-10">
             <div class="card">
                <div class="card-header">Autores</div>
                 <div class="card-body table-responsive">
@@ -51,6 +51,7 @@
                              @endforeach
                             </tbody>
                             </table>
+                            {{$autores->appends($resquest)->links()}}  
                  @endif           
                 </div>
                 <div class="card-footer"><button type="button" class="btn btn-success" data-toggle="modal" data-target="#cadastrarAutorModal">Cadastrar</button></div> 

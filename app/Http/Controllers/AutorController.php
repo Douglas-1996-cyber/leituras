@@ -21,19 +21,19 @@ class AutorController extends Controller
     public function index(Request $request)
     {
         $user_id = auth()->user()->id;
-        $autores = $this->autor->where('user_id',$user_id)->get();
+        $autores = $this->autor->where('user_id',$user_id);
         $autorRepository = new AutorRepository($this->autor);
         if(isset($request->pesquisar)){
             $autores = $autorRepository->buscar('nome',$request->pesquisar,$user_id);
            }
-        
+        $autores = $autores->paginate(3);
         $result = $autorRepository->verificarSolicitacao($request->codigo);
         if(sizeof($request->all()) == 0){
             $result[0] = '';
             $result[1] = '';
         }
         
-        return view('autor.index',['autores'=>$autores,'msg'=>$result[0],'classe'=>$result[1]]);
+        return view('autor.index',['autores'=>$autores,'resquest'=>$request->all(),'msg'=>$result[0],'classe'=>$result[1]]);
     }
 
 

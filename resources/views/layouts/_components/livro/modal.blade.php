@@ -91,7 +91,7 @@
     <div class="modal fade" id="alterarModal{{$livro->id}}" tabindex="-1" aria-labelledby="alterarModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-         <form  method="post" enctype="multipart/form-data" action="{{route('livro.update',['livro'=>$livro->id])}}">
+         <form  method="post" action="{{route('livro.update',['livro'=>$livro->id])}}">
                     @csrf
                     @method('PATCH')    
             <div class="modal-header">
@@ -106,8 +106,10 @@
                   <input type="hidden" value="{{$livro->autores}}" name="autor">
                   <label for="tipo">Titulo:</label>
                   <input name="titulo" type="text" class="form-control" id="titulo" value="{{$livro->titulo}}" required>
+                  <!---
+                  Implementar no AWS
                   <label for="capa">Capa:</label>
-                  <input type="file" class="form-control" name="capa">
+                  <input type="file" class="form-control" name="capa">-->
                  
                 </div>
             

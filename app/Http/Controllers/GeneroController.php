@@ -23,19 +23,21 @@ class GeneroController extends Controller
     public function index(Request $request)
     {
         $user_id = auth()->user()->id;
-        $generos = $this->genero->where('user_id',$user_id)->get();
+        $generos = $this->genero->where('user_id',$user_id);
         $generoRepository = new GeneroRepository($this->genero);
         if(isset($request->pesquisar)){
             $generos = $generoRepository->buscar('nome',$request->pesquisar,$user_id);
            }
+
+        $generos = $generos->paginate(3);
 
         $result = $generoRepository->verificarSolicitacao($request->codigo);
         if(sizeof($request->all()) == 0){
             $result[0] = '';
             $result[1] = '';
         }
-
-        return view('genero.index',['generos'=>$generos,'msg'=>$result[0],'classe'=>$result[1]]);
+       
+        return view('genero.index',['generos'=>$generos,'resquest'=>$request->all(),'msg'=>$result[0],'classe'=>$result[1]]);
 
     }
 

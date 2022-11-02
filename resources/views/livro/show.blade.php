@@ -15,11 +15,14 @@
                 @endif
                 <div id="buscar"></div>
                 <div class="media">
+                       <!---
+                  Implementar no AWS
                     @if($livro->capa !=null)
                     <img class="align-self-center mr-4" src="/storage/{{$livro->capa}}"  height="150" width="120">
                     @else
                      <img class="align-self-center mr-4" src="/imagem/not.png"  height="150" width="120">
                     @endif
+                    -->
                     <div class="media-body">
                         <h5 class="mt-0"><b>{{$livro->titulo}}</b></h5>
                         <p>Autor:
@@ -47,7 +50,7 @@
                         </p>
                         @endif
                         <p>
-                        <div class="progress">
+                        <div class="progress w-50">
                             <div class="progress-bar bg-success" role="progressbar" style="width: {{$livro->progresso}}%" aria-valuenow="{{$livro->progresso}}" aria-valuemin="0" aria-valuemax="100">{{$livro->progresso}}%</div>
                         </div>
                         </p>
